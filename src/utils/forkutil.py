@@ -8,7 +8,7 @@ class ForkRoot(): # Работаем с forkmanager рут
 
     @staticmethod
     def open_workspaces() -> None:
-        os.path.join(ForkRoot.get_root() + "workspaces") # Присоеденяем
+        os.path.join(ForkRoot.get_root() + "workspaces/") # Присоеденяем
 
     @staticmethod
     def add_workspace(**attrs) -> bool:
