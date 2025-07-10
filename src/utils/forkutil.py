@@ -2,21 +2,18 @@ import os
 import json
 import pathlib
 
-class ForkRoot():  # Работаем с forkmanager рут
+class ForkRoot():
     @staticmethod
     def get_root() -> str:
         return os.path.join(os.path.expanduser("~"), ".forkmanager")
 
     @staticmethod
     def open_workspaces() -> None:
-
-        # Простите я тут юзнул нейросеть потому что хуй
-        # Chdir не работает нормально
         forkmanager_path = ForkRoot.get_root()
         os.makedirs(forkmanager_path, exist_ok=True)
         os.chdir(forkmanager_path)
+        os.makedirs("workspaces", exist_ok=True)
         os.chdir("workspaces")
-        pathlib.WindowsPath(forkmanager_path)
 
     @staticmethod
     def add_workspace(**attrs) -> bool:
@@ -40,26 +37,26 @@ class ForkRoot():  # Работаем с forkmanager рут
         }
 
         ForkRoot.open_workspaces()
-        os.mkdir(workspace_json["workspace_name"])
+        os.makedirs(workspace_json["workspace_name"], exist_ok=True)
         os.chdir(workspace_json["workspace_name"])
 
         with open("workspace.json", "w") as workspace:
             json.dump(workspace_json, fp=workspace)
 
-        os.mkdir(workspace_json["project_name"])
+        os.makedirs(workspace_json["project_name"], exist_ok=True)
         os.chdir(workspace_json["project_name"])
 
-        os.mkdir(f"{workspace_json["project_name"]}/src")
+        os.makedirs("src", exist_ok=True)
 
-        source_dir = f"{workspace_json['project_name']}/src"
+        source_dir = "src"
 
-        with open(f"fork-project.lock", "w") as lock:
+        with open("fork-project.lock", "w") as lock:
             lock.writelines(f"""
             [[project]]
             main_file="{workspace_json['toml-settings']['main_file']}"
             """)
 
-        with open(f"{source_dir}/src/__main__.py", "w") as main:
+        with open(f"{source_dir}/__main__.py", "w") as main:
             main.writelines("""
             def main():
                 print("Hello!")
