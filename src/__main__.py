@@ -21,5 +21,18 @@ def create(project_name: str) -> None:
         workspace=workspace_name # Имя workspace
     )
 
+@clipr.command()
+def build():
+    try:
+        with open("fork-project.lock", "r") as lock_file:
+            content = lock_file.readlines()
+
+            main_file = content[3]
+            
+            # Остальной билд проекта пожалуйста, марк сделай сам!
+
+    except:
+        print("Could not found file 'fork-project.lock in current directory'")
+
 if __name__ == "__main__":
     clipr()
