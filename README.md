@@ -55,3 +55,6 @@ You can build your project!
 ```
 fm build --pyinstaller
 ```
+## ❤️ Donation
+
+You can send gift to <b>@Deadlars</b> or <b>@M1zuul</b> in telegram!
